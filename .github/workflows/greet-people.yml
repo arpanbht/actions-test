@@ -1,0 +1,24 @@
+name: Greet on Push or Pull Request
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  greet:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Checkout repository
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      # Step 2: Send a greeting
+      - name: Greet user
+        run: |
+          echo "Hello, $GITHUB_ACTOR 🎉 Code has been pushed or a pull request has been created to the main branch!"
+          echo "Thank you for your contributions!"
