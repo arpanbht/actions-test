@@ -1,0 +1,40 @@
+name: Run Tests Individually
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [18.x, 20.x, 22.x] # Specify the Node.js versions to test with
+
+    steps:
+      # Step 1: Checkout the code
+      - name: checkout from the repository
+        uses: actions/checkout@v3
+
+      # Step 2: Set up Node.js environment
+      - name: setup node js environment
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      # Step 3: Install dependencies
+      - name: Install dependencies
+        run: npm ci
+
+      # Step 4: Run tests for each file individually
+      - name: Run tests individually
+        run: |
+          for file in tests/*.test.js; do
+            echo "Running tests in $file"
+            npx jest $file || exit 1
+          done
