@@ -14,4 +14,6 @@ app.get("/api/room", (req, res) => {
 
 app.use("/api/testing", testRouter);
 
+console.log("Hello, World!");
+
 module.exports = app;
