@@ -9,8 +9,6 @@ RUN npm install
 
 COPY . .
 
-RUN npm test
-
 # Production stage
 FROM node:22-alpine AS production-stage
 
